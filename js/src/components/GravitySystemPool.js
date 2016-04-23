@@ -1,6 +1,6 @@
 require('../../../libs/gamecore.min.js');
 
-var TAG = 'VelocitySystemPool';
+var TAG = 'GravitySystemPool';
 
 import { System } from './System.js'
 

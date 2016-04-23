@@ -4,11 +4,10 @@ var TAG = 'VelocitySystemPool';
 
 import { System } from './System.js'
 
-export class SpriteRemoveSystemPool extends System {
+export class SpriteRemoveSystemPool {
 
     constructor(container) {
 
-        super();
         this.container = container;
         this.utilityList = new gamecore.LinkedList();
         this.pool = gamecore.DualPooled('SpriteRemoveSystemPool',
@@ -51,7 +50,7 @@ export class SpriteRemoveSystemPool extends System {
                         currentComponent.entity.removeComponent(component);
                     }
                 }
-                
+
                 this.current_pool_node = this.current_pool_node.next();
             }
 

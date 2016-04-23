@@ -13,7 +13,7 @@ export class Game {
 
     constructor(renderer, stage, resources){
         this.id = Uuid.v4();
-        this.size = new PIXI.Point(800,600);
+        this.size = new PIXI.Point(1200,800);
         this.renderer = new PIXI.WebGLRenderer(this.size.x, this.size.y);
         this.stage = new PIXI.Container();
 

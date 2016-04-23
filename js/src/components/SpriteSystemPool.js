@@ -12,7 +12,7 @@ export class SpriteSystemPool extends System {
         super();
         this.pool = gamecore.DualPooled('SpriteSystemPool',
         {
-            create: function (x,y,scaleX, scaleY,texture)
+            create: function (x,y,scaleX, scaleY, pivotXScale, pivotYScale, texture)
             {
                 var n = this._super();
                 n.sprite.position.x = x;
@@ -20,8 +20,8 @@ export class SpriteSystemPool extends System {
                 n.sprite.scale.x = scaleX;
                 n.sprite.scale.y = scaleY;
                 n.sprite.texture = texture;
-                n.sprite.pivot.x = texture.width/2;
-                n.sprite.pivot.y = texture.height/2;
+                n.sprite.pivot.x = texture.width * pivotXScale;
+                n.sprite.pivot.y = texture.height * pivotYScale;
                 contianer.addChild(n.sprite);
                 return n;
             }
@@ -40,7 +40,8 @@ export class SpriteSystemPool extends System {
 
     }
 
-    update(component) {
+    update(currentComponent) {
+
 
     }
 
