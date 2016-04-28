@@ -13,7 +13,6 @@ export class Entity {
 
 
     removeComponent (componentStringName) {
-        //this.components[componentStringName].entity = null;
         delete this.components[componentStringName];
     }
 

@@ -45,6 +45,7 @@ export class SpriteRemoveSystemPool {
                         //Remove the sprite from the container/scene,
                         if (currentComponent.entity.components[component].sprite){
                             this.container.removeChild(currentComponent.entity.components[component].sprite);
+                            this.container.removeChild(currentComponent.entity.components[component].boundsRect);
                         }
                         this.utilityList.add(currentComponent.entity.components[component]);
                         currentComponent.entity.removeComponent(component);

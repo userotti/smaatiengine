@@ -3,9 +3,13 @@ import { BaseState } from './BaseState.js';
 var TAG = 'LoadingState';
 export class LoadingState extends BaseState{
 
-    constructor(stage, size, fsm){
-        super(stage, size, fsm);
+    constructor(stateManager, size){
+
+        super();
+        
         this.name = 'loading_state';
+        this.state_manager = this.stateManager;
+        this.size = size;
     }
 
     setup(resources) {

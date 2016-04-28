@@ -1,4 +1,5 @@
 var PIXI = require('../../../libs/pixi.min.js');
+const EventEmitter = require('events');
 
 import { BaseState } from './BaseState';
 import { EntityPool } from '../entities/EntityPool';
@@ -15,14 +16,24 @@ import { CollidableActorSystemPoolGroup } from '..//components/groups/Collidable
 var TAG = 'GameState';
 export class GameState extends BaseState{
 
-    constructor(stage, size, fsm){
+    constructor(stateManager, size){
 
-        super(stage, size, fsm);
+        super();
         //this.container is defined in super() and gets added to the stage;
 
         this.name = 'game_state';
+        this.state_manager = this.stateManager;
+        this.size = size;
+
         this.systems = [];
         this.entityPool = new EntityPool();
+
+        this.event_emitter = new EventEmitter();
+
+        this.event_emitter.on('actor_target_collision', function(collidingActorEntity){
+            //console.log('collidingActorEntity');
+            collidingActorEntity.components.sprite_remove.time_to_remove = true;
+        })
 
         this.spriteSystemPool = new SpriteSystemPool(this.container);
         this.velocitySystemPool = new VelocitySystemPool();
@@ -31,7 +42,7 @@ export class GameState extends BaseState{
         this.spriteRemoveSystemPool = new SpriteRemoveSystemPool(this.container);
         this.queRemoveSystemPool = new QueRemoveSystemPool();
         this.picachoos = new CollidableTargetSystemPoolGroup(0,0,this.size.x,this.size.y);
-        this.arrows = new CollidableActorSystemPoolGroup([this.picachoos.quadtree]);
+        this.arrows = new CollidableActorSystemPoolGroup([this.picachoos.quadtree], this.event_emitter);
 
         this.systems.push(this.spriteSystemPool);
         this.systems.push(this.velocitySystemPool);
@@ -69,9 +80,19 @@ export class GameState extends BaseState{
             self.shooting = false;
         })
 
+        var random1 = Math.random();
+        var random2 = Math.random();
+
         var hitable = this.entityPool.pool.create();
-        hitable.addComponent(this.spriteSystemPool.pool.create(this.size.x/2,250,0.8,0.8,0.5,0.5,PIXI.loader.resources.loading_asset.texture))
+        hitable.addComponent(this.spriteSystemPool.pool.create(this.size.x/2 - 300, 600,random1,random1,0.5,0.5,PIXI.loader.resources.loading_asset.texture))
         hitable.addComponent(this.picachoos.pool.create(hitable.components.sprite.sprite));
+
+
+        var hitable = this.entityPool.pool.create();
+        hitable.addComponent(this.spriteSystemPool.pool.create(this.size.x/2 + 300, 600,random2,random2,0.5,0.5,PIXI.loader.resources.loading_asset.texture))
+        hitable.addComponent(this.picachoos.pool.create(hitable.components.sprite.sprite));
+
+
 
 
         //Pre populate the pools
@@ -89,14 +110,15 @@ export class GameState extends BaseState{
 
     }
 
+    //This happens 60 times a second when this state is the current game state.
     render() {
 
         if (this.shooting){
 
-            for(let i = 0; i < 5; i++){
+            for(let i = 0; i < 2; i++){
                 let dude = this.entityPool.pool.create();
                 dude.addComponent(this.spriteSystemPool.pool.create(this.size.x/2,this.size.y,0.7,0.7,0.5,0.2,PIXI.loader.resources.arrow.texture));
-                dude.addComponent(this.velocitySystemPool.pool.create((0.5-Math.random())*5,-5*(Math.random()) - 5 ));
+                dude.addComponent(this.velocitySystemPool.pool.create((0.5-Math.random())*4,-5*(Math.random()) - 7 ));
                 dude.addComponent(this.gravitySystemPool.pool.create(0,0.1));
                 dude.addComponent(this.spriteDirectionalRotationSystemPool.pool.create());
                 dude.addComponent(this.spriteRemoveSystemPool.pool.create(false));
@@ -105,11 +127,14 @@ export class GameState extends BaseState{
 
             }
 
-            if (this.spriteSystemPool.pool.getPool()){
-        //        console.log('Sprite Pool Size',  this.spriteSystemPool.pool.getPool().getFreeList().length() + this.spriteSystemPool.pool.getPool().getUsedList().length());
-            }
+            //Sprite Pool Performance test, leke
+
+            // if (this.spriteSystemPool.pool.getPool()){
+            //     console.log('Sprite Pool Size',  this.spriteSystemPool.pool.getPool().getFreeList().length() + this.spriteSystemPool.pool.getPool().getUsedList().length());
+            // }
         }
 
+        //Loop through and update all the systems of active pooled components.
         for(let i = 0; i < this.systems.length; i++){
             this.systems[i].updateAll();
         }

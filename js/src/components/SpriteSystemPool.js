@@ -22,7 +22,13 @@ export class SpriteSystemPool extends System {
                 n.sprite.texture = texture;
                 n.sprite.pivot.x = texture.width * pivotXScale;
                 n.sprite.pivot.y = texture.height * pivotYScale;
+                // n.sprite.anchor.x = pivotXScale;
+                // n.sprite.anchor.y = pivotYScale;
+
+                n.draw_box = false;
+
                 contianer.addChild(n.sprite);
+                contianer.addChild(n.bounds_rect);
                 return n;
             }
         },
@@ -35,12 +41,27 @@ export class SpriteSystemPool extends System {
                 this.sprite.position.y = y;
                 this.sprite.scale.x = scaleX;
                 this.sprite.scale.y = scaleY;
+
+                this.bounds_rect = new PIXI.Graphics();
+
+
             }
         });
 
     }
 
     update(currentComponent) {
+
+        if (currentComponent.draw_box){
+            currentComponent.bounds_rect.clear();
+            currentComponent.bounds_rect.lineStyle(2, 0xaaffcc, 1);
+            let bounds = currentComponent.sprite.getBounds();
+            currentComponent.bounds_rect.drawRect(
+                bounds.x, bounds.y,
+                bounds.width,
+                bounds.height
+            );
+        }
 
 
     }
