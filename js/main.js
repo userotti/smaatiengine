@@ -1,4 +1,3 @@
-var PIXI = require('../libs/pixi.min.js');
 import { Game } from './src/game';
 
 var TAG = 'Main.js'

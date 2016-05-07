@@ -33,6 +33,7 @@ export class CollidableTargetSystemPoolGroup {
     }
 
     setXYWH (component){
+        component.sprite.updateTransform();
         let bounds = component.sprite.getBounds();
         component.x = bounds.x;
         component.y = bounds.y;

@@ -3,6 +3,8 @@ const EventEmitter = require('events');
 
 import { BaseState } from './BaseState';
 import { EntityPool } from '../entities/EntityPool';
+import { SoundManager } from '../SoundManager';
+
 import { SpriteSystemPool } from '../components/SpriteSystemPool';
 import { VelocitySystemPool } from '../components/VelocitySystemPool';
 import { GravitySystemPool } from '../components/GravitySystemPool';
@@ -10,17 +12,17 @@ import { SpriteDirectionalRotationSystemPool } from '../components/SpriteDirecti
 import { SpriteRemoveSystemPool } from '../components/SpriteRemoveSystemPool';
 import { QueRemoveSystemPool } from '../components/QueRemoveSystemPool';
 import { CollidableTargetSystemPoolGroup } from '../components/groups/CollidableTargetSystemPoolGroup';
-import { CollidableActorSystemPoolGroup } from '..//components/groups/CollidableActorSystemPoolGroup';
+import { CollidableActorSystemPoolGroup } from '../components/groups/CollidableActorSystemPoolGroup';
 
 
 var TAG = 'GameState';
-export class GameState extends BaseState{
+export class GameState extends BaseState {
 
     constructor(stateManager, size){
 
         super();
         //this.container is defined in super() and gets added to the stage;
-
+        self = this;
         this.name = 'game_state';
         this.state_manager = this.stateManager;
         this.size = size;
@@ -30,9 +32,13 @@ export class GameState extends BaseState{
 
         this.event_emitter = new EventEmitter();
 
+        this.soundmanager = new SoundManager();
+
         this.event_emitter.on('actor_target_collision', function(collidingActorEntity){
             //console.log('collidingActorEntity');
             collidingActorEntity.components.sprite_remove.time_to_remove = true;
+            self.soundmanager.sounds['smack'].play();
+
         })
 
         this.spriteSystemPool = new SpriteSystemPool(this.container);

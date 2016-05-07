@@ -39,6 +39,8 @@ export class CollidableActorSystemPoolGroup extends System{
 
         for (let i = 0; i < this.quadtrees.length; i++){
             currentComponent.sprite.boundsPadding = 0;
+            currentComponent.sprite.updateTransform();
+            
             let coliding_with = this.quadtrees[i].retrieve(currentComponent.sprite.getBounds());
             for (let j = 0; j < coliding_with.length; j++){
 
