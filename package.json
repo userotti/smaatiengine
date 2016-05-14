@@ -1,7 +1,7 @@
 {
-  "name": "gunman",
+  "name": "smaatengine-boilerplate",
   "version": "1.0.0",
-  "description": "Bullet hell",
+  "description": "some boilerplate code for high performance 2d bowser games",
   "scripts": {
     "start": "webpack-dev-server --inline"
   },
