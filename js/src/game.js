@@ -41,13 +41,13 @@ export class Game {
     //Loading vibes
     loadAssets(callback) {
         var self = this;
-        self.loading_promises = [];
+        let loading_promises = [];
 
 
         var images_defered = q.defer();
         var sounds_defered = q.defer();
-        self.loading_promises.push(images_defered.promise);
-        self.loading_promises.push(sounds_defered.promise);
+        loading_promises.push(images_defered.promise);
+        loading_promises.push(sounds_defered.promise);
 
 
         //Loading the assest for the Loading screen only
@@ -93,12 +93,11 @@ export class Game {
 
         });
 
-        console.log('self.loading_promises', self.loading_promises);
-        q.all(self.loading_promises).then(function(){
+        console.log('loading_promises', loading_promises);
+        q.all(loading_promises).then(function(){
             console.log('done with all the loading');
             callback();
         })
-
 
     }
 

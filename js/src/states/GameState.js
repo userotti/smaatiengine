@@ -47,8 +47,13 @@ export class GameState extends BaseState {
         this.spriteDirectionalRotationSystemPool = new SpriteDirectionalRotationSystemPool();
         this.spriteRemoveSystemPool = new SpriteRemoveSystemPool(this.container);
         this.queRemoveSystemPool = new QueRemoveSystemPool();
+
         this.picachoos = new CollidableTargetSystemPoolGroup(0,0,this.size.x,this.size.y);
-        this.arrows = new CollidableActorSystemPoolGroup([this.picachoos.quadtree], this.event_emitter);
+
+        this.arrows = new CollidableActorSystemPoolGroup([this.picachoos.quadtree], function(actorEntity, targetEntities){
+            actorEntity.components.sprite_remove.time_to_remove = true;
+            self.soundmanager.sounds['smack'].play();
+        });
 
         this.systems.push(this.spriteSystemPool);
         this.systems.push(this.velocitySystemPool);

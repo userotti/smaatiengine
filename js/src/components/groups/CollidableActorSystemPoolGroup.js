@@ -1,6 +1,5 @@
 require('../../../../libs/gamecore.min.js');
 require('../../../../libs/quadtree.js');
-const EventEmitter = require('events');
 var uuid = require('uuid');
 
 var TAG = 'CollidableActorSystemPoolGroup';
@@ -10,11 +9,12 @@ import { boxhit } from '../../utility/Functions';
 
 export class CollidableActorSystemPoolGroup extends System{
 
-    constructor(targetsArray, eventEmitter) {
+    constructor(targetsArray, hitCallback) {
 
         super();
-        this.event_emitter =  eventEmitter;
         this.quadtrees = targetsArray;
+        this.hitCallback = hitCallback;
+
         this.hitting_these_guys = new gamecore.LinkedList();
         this.pool = gamecore.DualPooled('CollidableActorSystemPoolGroup' + uuid.v4(),
         {
@@ -40,7 +40,7 @@ export class CollidableActorSystemPoolGroup extends System{
         for (let i = 0; i < this.quadtrees.length; i++){
             currentComponent.sprite.boundsPadding = 0;
             currentComponent.sprite.updateTransform();
-            
+
             let coliding_with = this.quadtrees[i].retrieve(currentComponent.sprite.getBounds());
             for (let j = 0; j < coliding_with.length; j++){
 
@@ -51,7 +51,7 @@ export class CollidableActorSystemPoolGroup extends System{
             }
 
             if (this.hitting_these_guys.length()){
-                this.event_emitter.emit('actor_target_collision', currentComponent.entity);
+                this.hitCallback(currentComponent.entity, this.hitting_these_guys)
             }
 
         }
