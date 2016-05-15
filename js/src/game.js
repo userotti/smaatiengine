@@ -29,6 +29,10 @@ export class Game {
 
         //MAIN PIXI sprite container
         this.stage = new PIXI.Container();
+        this.stage.width = this.size.x;
+        this.stage.height = this.size.y;
+        this.stage.yoh = 100;
+
 
         //loading, menu, game
         this.state_manager = new StateManager(this.stage, this.size);

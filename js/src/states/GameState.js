@@ -1,4 +1,6 @@
 var PIXI = require('../../../libs/pixi.min.js');
+var PIXICAM = require('../../../libs/pixicam.min.js');
+
 const EventEmitter = require('events');
 
 import { BaseState } from './BaseState';
@@ -27,6 +29,7 @@ export class GameState extends BaseState {
         this.state_manager = this.stateManager;
         this.size = size;
 
+
         this.systems = [];
         this.entityPool = new EntityPool();
 
@@ -34,18 +37,25 @@ export class GameState extends BaseState {
 
         this.soundmanager = new SoundManager();
 
-        this.event_emitter.on('actor_target_collision', function(collidingActorEntity){
-            //console.log('collidingActorEntity');
-            collidingActorEntity.components.sprite_remove.time_to_remove = true;
-            self.soundmanager.sounds['smack'].play();
+        this.world = new pixicam.World({
+            screenWidth: this.size.x,
+            screenHeight: this.size.y,
+            width: 5000,
+            height: 5000,
+            x: this.size.x/2,
+            y: this.size.y/2
+        });
 
-        })
+        this.camera = this.world.camera;
+        this.camera.viewCenterX = this.size.x/2;
+        this.camera.viewCenterY = this.size.y/2;
+        this.container.addChild(this.world);
 
-        this.spriteSystemPool = new SpriteSystemPool(this.container);
+        this.spriteSystemPool = new SpriteSystemPool(this.world);
         this.velocitySystemPool = new VelocitySystemPool();
         this.gravitySystemPool = new GravitySystemPool();
         this.spriteDirectionalRotationSystemPool = new SpriteDirectionalRotationSystemPool();
-        this.spriteRemoveSystemPool = new SpriteRemoveSystemPool(this.container);
+        this.spriteRemoveSystemPool = new SpriteRemoveSystemPool(this.world);
         this.queRemoveSystemPool = new QueRemoveSystemPool();
 
         this.picachoos = new CollidableTargetSystemPoolGroup(0,0,this.size.x,this.size.y);
@@ -87,22 +97,26 @@ export class GameState extends BaseState {
 
         })
 
-        this.container.on('mouseup', function(mouseData){
-            self.shooting = false;
-        })
+
 
         var random1 = Math.random();
         var random2 = Math.random();
 
-        var hitable = this.entityPool.pool.create();
-        hitable.addComponent(this.spriteSystemPool.pool.create(this.size.x/2 - 300, 600,random1,random1,0.5,0.5,PIXI.loader.resources.loading_asset.texture))
-        hitable.addComponent(this.picachoos.pool.create(hitable.components.sprite.sprite));
+        var picachoo1 = this.entityPool.pool.create();
+        picachoo1.addComponent(this.spriteSystemPool.pool.create(this.size.x/2 - 300, 600,random1,random1,0.5,0.5,PIXI.loader.resources.loading_asset.texture))
+        picachoo1.addComponent(this.picachoos.pool.create(picachoo1.components.sprite.sprite));
+        picachoo1.addComponent(this.velocitySystemPool.pool.create(Math.random() - Math.random(), Math.random() - Math.random()));
 
 
-        var hitable = this.entityPool.pool.create();
-        hitable.addComponent(this.spriteSystemPool.pool.create(this.size.x/2 + 300, 600,random2,random2,0.5,0.5,PIXI.loader.resources.loading_asset.texture))
-        hitable.addComponent(this.picachoos.pool.create(hitable.components.sprite.sprite));
+        var picachoo2 = this.entityPool.pool.create();
+        picachoo2.addComponent(this.spriteSystemPool.pool.create(this.size.x/2 + 300, 600,random2,random2,0.5,0.5,PIXI.loader.resources.loading_asset.texture))
+        picachoo2.addComponent(this.picachoos.pool.create(picachoo2.components.sprite.sprite));
 
+        this.container.on('mouseup', function(mouseData){
+            self.shooting = false;
+        })
+
+        this.camera.follow(picachoo1.components.sprite.sprite);
 
 
 
@@ -149,6 +163,11 @@ export class GameState extends BaseState {
         for(let i = 0; i < this.systems.length; i++){
             this.systems[i].updateAll();
         }
+
+//        this.camera.x += 1;
+
+        this.world.update();
+
     }
 
 }
