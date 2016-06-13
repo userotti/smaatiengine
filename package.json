@@ -1,7 +1,7 @@
 {
-  "name": "Gunman",
+  "name": "Pooled-Component-Engine",
   "version": "1.0.0",
-  "description": "Bullet hell shooter",
+  "description": "Component Entity Pooling system",
   "scripts": {
     "start": "webpack-dev-server --inline"
   },
