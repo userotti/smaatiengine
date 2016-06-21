@@ -1,5 +1,5 @@
 var Uuid = require('uuid');
-var PIXI = require('../../libs/pixi.min.js');
+var PIXI = require('../../../libs/pixi.min.js');
 var q = require('q');
 
 import { SoundManager } from './SoundManager'

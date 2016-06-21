@@ -1,5 +1,5 @@
-var PIXI = require('../../../libs/pixi.min.js');
-var PIXICAM = require('../../../libs/pixicam.min.js');
+var PIXI = require('../../../../libs/pixi.min.js');
+var PIXICAM = require('../../../../libs/pixicam.min.js');
 
 const EventEmitter = require('events');
 

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Component Entity Pooling system",
   "scripts": {
-    "start": "webpack-dev-server --inline"
+    "start": "node server"
   },
   "main": "./js/main.js",
   "author": "",
