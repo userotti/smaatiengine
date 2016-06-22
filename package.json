@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Component Entity Pooling system",
   "scripts": {
-    "start": "BUILD_DEV=1 babel-node --presets es2015 bin/dev-server.js"
+    "start": "BUILD_DEV=1 babel-node --presets es2015 bin/dev-server.js",
+    "game-server": "node bin/game-logic-server.js"
   },
   "main": "./js/main.js",
   "author": "",
