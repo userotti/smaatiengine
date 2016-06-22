@@ -1,3 +1,9 @@
+// import local libs
+import "script!../libs/gamecore.js";
+import "script!../libs/pixi.js";
+import "script!../libs/pixicam.min.js";
+import "script!../libs/quadtree.js";
+
 //your game init goes here
 
 import { Game } from './src/game';

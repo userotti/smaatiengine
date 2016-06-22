@@ -1,6 +1,3 @@
-require('../../../libs/gamecore.min.js');
-var PIXI = require('../../../libs/pixi.min.js');
-
 var TAG = 'SpriteSystemPool';
 
 import { System } from './System.js'
