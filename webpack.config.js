@@ -21,6 +21,5 @@ module.exports = {
     },
     resolve: {
         extensions: ['', '.js', '.es6']
-    },
-    watch: true,
+    }
 }
