@@ -1,5 +1,3 @@
-// require('../../../libs/gamecore.min.js');
-
 var TAG = 'EntityPool';
 
 import { Entity } from './Entity.js'

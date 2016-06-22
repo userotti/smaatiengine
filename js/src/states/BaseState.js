@@ -1,5 +1,3 @@
-// var PIXI = require('../../../libs/pixi.min.js');
-
 var TAG = 'BaseState';
 export class BaseState {
 
