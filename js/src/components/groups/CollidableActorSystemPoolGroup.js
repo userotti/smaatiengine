@@ -1,5 +1,5 @@
-require('../../../../libs/gamecore.min.js');
-require('../../../../libs/quadtree.js');
+// require('../../../../libs/gamecore.min.js');
+// require('../../../../libs/quadtree.js');
 var uuid = require('uuid');
 
 var TAG = 'CollidableActorSystemPoolGroup';

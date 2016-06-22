@@ -1,4 +1,4 @@
-require('../../../libs/gamecore.min.js');
+// require('../../../libs/gamecore.min.js');
 
 var TAG = 'VelocitySystemPool';
 

@@ -1,5 +1,5 @@
 var Uuid = require('uuid');
-var PIXI = require('../../libs/pixi.min.js');
+// var PIXI = require('../../libs/pixi.min.js');
 var q = require('q');
 
 import { SoundManager } from './SoundManager'
@@ -55,7 +55,7 @@ export class Game {
 
 
         //Loading the assest for the Loading screen only
-        PIXI.loader.add('loading_asset', 'img/pica2.png');
+        PIXI.loader.add('loading_asset', require('../../img/pica2.png'));
         PIXI.loader.load(function (loader, resources) {
 
             self.state_manager.fsm.start();
@@ -64,9 +64,9 @@ export class Game {
 
             //proper loading vibes for the rest of the app
             //Image Loading
-            loader.add('rocket', 'img/rocket.png');
-            loader.add('rand', 'img/rand.png');
-            loader.add('arrow', 'img/arrow_smaller.png');
+            loader.add('rocket', require('../../img/rocket.png'));
+            loader.add('rand', require('../../img/rand.png'));
+            loader.add('arrow', require('../../img/arrow_smaller.png'));
 
 
             let soundmanager = new SoundManager()
@@ -75,7 +75,7 @@ export class Game {
 
             //Sound Loadeing
             soundmanager.addSound('smack', {
-                urls: ['audio/smack.mp3', 'audio/smack.ogg'],
+                urls: [require('../../audio/smack.mp3'), require('../../audio/smack.ogg')],
                 autoplay: false,
                 loop: false,
                 volume: 0.5,
