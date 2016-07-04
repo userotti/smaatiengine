@@ -4,7 +4,7 @@
   "description": "Component Entity Pooling system",
   "scripts": {
     "start": "BUILD_DEV=1 babel-node --presets es2015 bin/dev-server.js",
-    "game-server": "node bin/game-logic-server.js"
+    "tut-server": "BUILD_DEV=1 babel-node bin/tut/tut-server.js"
   },
   "main": "./js/main.js",
   "author": "",
