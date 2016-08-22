@@ -12,16 +12,19 @@ export class SpriteSystemPool extends System {
         super();
         this.pool = gamecore.DualPooled('SpriteSystemPool',
         {
-            create: function (x,y,scaleX, scaleY, pivotXScale, pivotYScale, texture)
+            create: function (params)
             {
                 var n = this._super();
-                n.sprite.position.x = x;
-                n.sprite.position.y = y;
-                n.sprite.scale.x = scaleX;
-                n.sprite.scale.y = scaleY;
-                n.sprite.texture = texture;
-                n.sprite.pivot.x = texture.width * pivotXScale;
-                n.sprite.pivot.y = texture.height * pivotYScale;
+
+                // console.log(TAG + ' create params', params);
+                n.sprite.position.x = params.posx;
+                n.sprite.position.y = params.posy;
+                n.sprite.scale.x = params.scaleX;
+                n.sprite.scale.y = params.scaleY;
+                n.sprite.texture = params.texture;
+                n.sprite.pivot.x = params.texture.width * params.pivotXScale;
+                n.sprite.pivot.y = params.texture.height * params.pivotYScale;
+                n.sprite.rotation = params.rotation;
                 // n.sprite.anchor.x = pivotXScale;
                 // n.sprite.anchor.y = pivotYScale;
 
@@ -33,15 +36,11 @@ export class SpriteSystemPool extends System {
             }
         },
         {
-            init: function (x, y, scaleX, scaleY, texture)
+            init: function ()
             {
-                this.name = 'sprite';
-                this.sprite = (new PIXI.Sprite(texture));
-                this.sprite.position.x = x;
-                this.sprite.position.y = y;
-                this.sprite.scale.x = scaleX;
-                this.sprite.scale.y = scaleY;
 
+                this.name = 'sprite';
+                this.sprite = (new PIXI.Sprite());
                 this.bounds_rect = new PIXI.Graphics();
 
 

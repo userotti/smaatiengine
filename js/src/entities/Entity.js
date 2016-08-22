@@ -1,7 +1,8 @@
 var Uuid = require('uuid');
 export class Entity {
 
-    constructor(){
+    constructor(_class){
+        this.entity_type = _class;
         this.id = Uuid.v4();
         this.components = {};
     }

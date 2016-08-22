@@ -56,13 +56,13 @@ export class StateManager {
 
     }
 
-    render () {
+    render (dt) {
 
         if (this.frame_counter < this.frames_to_skip) {
             this.frame_counter++;
         } else {
             this.frame_counter = 0;
-            this.current_state.render();
+            this.current_state.render(dt);
         }
 
 

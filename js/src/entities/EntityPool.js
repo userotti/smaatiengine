@@ -10,9 +10,10 @@ export class EntityPool {
 
         this.pool = gamecore.DualPooled('EntityPool',
         {
-            create: function ()
+            create: function (_class)
             {
                 var n = this._super();
+                n.entity_type = _class;
                 return n;
             }
         },

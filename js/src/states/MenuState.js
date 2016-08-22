@@ -30,7 +30,7 @@ export class MenuState extends BaseState {
 
     }
 
-    render() {
-        console.log(TAG, 'loopin');
+    render(dt) {
+        // console.log(TAG + ' loopin, dt: ', dt);
     }
 }
