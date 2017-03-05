@@ -1,4 +1,4 @@
-require('../../../libs/gamecore.min.js');
+require('../../../libs/gamecore.js');
 
 var TAG = 'QueRemoveSystemPool';
 

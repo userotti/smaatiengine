@@ -1,4 +1,4 @@
-require('../../../../libs/gamecore.min.js');
+require('../../../../libs/gamecore.js');
 require('../../../../libs/quadtree.js');
 var uuid = require('uuid');
 

@@ -2041,7 +2041,7 @@ gamecore.LinkedList = gamecore.Base('gamecore.LinkedList',
                 // if the object is already in the list just throw an (can't add an object more than once)
                 // if you want to quickly check if an item is already in a list, then call list.has(obj)
                 if (node.free == false)
-                    throw 'Attempting to add object: ' + obj.getUniqueId() + ' twice to list ' + this.getUniqueId();
+                    // throw 'Attempting to add object: ' + obj.getUniqueId() + ' twice to list ' + this.getUniqueId();
 
                 // reusing a node, so we clean it up
                 // this caching of node/object pairs is the reason an object can only exist

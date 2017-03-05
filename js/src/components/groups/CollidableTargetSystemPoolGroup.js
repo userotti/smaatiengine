@@ -1,4 +1,4 @@
-require('../../../../libs/gamecore.min.js');
+require('../../../../libs/gamecore.js');
 require('../../../../libs/quadtree.js');
 var uuid = require('uuid');
 
@@ -9,6 +9,7 @@ export class CollidableTargetSystemPoolGroup {
     constructor(x,y,w,h) {
 
         this.quadtree = new QuadTree({x: x,y: y,width: w,height: h}, false, 4, 5);
+        console.log('hey?');
         this.pool = gamecore.DualPooled('CollidableTargetSystemPoolGroup' + uuid.v4(),
         {
             create: function (sprite)
