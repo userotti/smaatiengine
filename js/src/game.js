@@ -33,6 +33,8 @@ export class Game {
 
     //MAIN PIXI sprite container
     this.stage = new PIXI.Container();
+
+
     this.stage.width = this.size.x;
     this.stage.height = this.size.y;
     this.stage.yoh = 100;
@@ -59,7 +61,7 @@ export class Game {
 
 
     //Loading the assest for the Loading screen only
-    PIXI.loader.add('loading_asset', 'img/pica2.png');
+    PIXI.loader.add('loading_asset', 'assets/img/pica2.png');
     PIXI.loader.load(function (loader, resources) {
 
       self.state_manager.fsm.start();
@@ -68,14 +70,14 @@ export class Game {
 
       //proper loading vibes for the rest of the app
       //Image Loading
-      loader.add('rocket', 'img/rocket.png');
-      loader.add('rand', 'img/rand.png');
-      loader.add('arrow', 'img/arrow_smaller.png');
+      loader.add('rocket', 'assets/img/rocket.png');
+      loader.add('rand', 'assets/img/rand.png');
+      loader.add('arrow', 'assets/img/arrow_smaller.png');
 
-      loader.add('bullet', 'img/characters/geel.png');
-      loader.add('ship', 'img/characters/blougrys.png');
-      loader.add('asteroid', 'img/characters/asteroid.png');
-      loader.add('stars', 'img/backgrounds/stars.png');
+      loader.add('bullet', 'assets/img/characters/geel.png');
+      loader.add('ship', 'assets/img/characters/blougrys.png');
+      loader.add('asteroid', 'assets/img/characters/asteroid.png');
+      loader.add('stars', 'assets/img/backgrounds/stars.png');
 
 
 
@@ -85,28 +87,28 @@ export class Game {
 
       //Sound Loadeing
       soundmanager.addSound('smack', {
-        urls: ['audio/smack.mp3', 'audio/smack.ogg'],
+        urls: ['assets/audio/smack.mp3', 'assets/audio/smack.ogg'],
         autoplay: false,
         loop: false,
         volume: 0.5,
       });
 
       soundmanager.addSound('laser', {
-        urls: ['audio/sfx2.wav'],
+        urls: ['assets/audio/sfx2.wav'],
         autoplay: false,
         loop: false,
         volume: 0.3,
       });
 
       soundmanager.addSound('hit', {
-        urls: ['audio/hit.wav'],
+        urls: ['assets/audio/hit.wav'],
         autoplay: false,
         loop: false,
         volume: 0.5,
       });
 
       soundmanager.addSound('crash', {
-        urls: ['audio/crash.wav'],
+        urls: ['assets/audio/crash.wav'],
         autoplay: false,
         loop: false,
         volume: 0.5,

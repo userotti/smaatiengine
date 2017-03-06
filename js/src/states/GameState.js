@@ -25,9 +25,9 @@ export class GameState extends BaseState {
     //Timers
     this.game_runtime = 0;
     this.asteroid_timer = 0;
-    this.asteroid_timer_limit = 2000;
+    this.asteroid_timer_limit = 100;
     this.reload_timer = 0;
-    this.reload_timer_limit = 60;
+    this.reload_timer_limit = 30;
 
     this.event_emitter = new EventEmitter();
     this.soundmanager = new SoundManager();
@@ -54,6 +54,9 @@ export class GameState extends BaseState {
     //Container is the pixi stage, and this dot world is the camera world
     this.container.addChild(this.world);
 
+    // var filter = new PIXI.filters.PixelateFilter();
+    // this.container.filters = [filter];
+
     console.log("this.world: " , this.world);
     this.levelBuilder = new LevelBuilder(this.world, this.event_emitter);
 
@@ -66,7 +69,7 @@ export class GameState extends BaseState {
       var node = collision.targets.first;
       while (node)
       {
-          node.object().entity.components.health.health -= 0.75;
+          node.object().entity.components.health.health -= 1.75;
           node = node.next();
       }
     });
