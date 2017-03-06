@@ -54,8 +54,9 @@ export class GameState extends BaseState {
     //Container is the pixi stage, and this dot world is the camera world
     this.container.addChild(this.world);
 
-    // var filter = new PIXI.filters.PixelateFilter();
-    // this.container.filters = [filter];
+    var filter = new PIXI.filters.PixelateFilter();
+    filter.size = new PIXI.Point(6,6);
+    this.container.filters = [filter];
 
     console.log("this.world: " , this.world);
     this.levelBuilder = new LevelBuilder(this.world, this.event_emitter);
@@ -139,19 +140,20 @@ export class GameState extends BaseState {
       if (this.reload_timer < 0){
         this.reload_timer = this.reload_timer_limit;
         self.soundmanager.sounds['laser'].play();
+
         // this.levelBuilder.createBullet({
         //   x: 0,
         //   y: this.size.y*0.2
         // }, this.mouse_data.data.global);
         //
-        // this.levelBuilder.createBullet({
-        //   x: this.size.x,
-        //   y: this.size.y*0.8
-        // }, this.mouse_data.data.global);
+        this.levelBuilder.createLaser({
+          x: this.size.x * 0.7,
+          y: this.size.y
+        }, this.mouse_data.data.global);
 
         this.levelBuilder.createBullet({
-          x: 0,
-          y: this.size.y*0.8
+          x: this.size.x * 0.3,
+          y: this.size.y
         }, this.mouse_data.data.global);
       }
 

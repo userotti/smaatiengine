@@ -63,8 +63,8 @@ export class LevelBuilder {
     stars.addComponent(this.spriteSystemPool.pool.create({
       posx: 0,
       posy: 0,
-      scaleX: 1,
-      scaleY: 1,
+      scaleX: 2,
+      scaleY: 2,
       pivotXScale: 0,
       pivotYScale: 0,
       texture: PIXI.loader.resources.stars.texture,
@@ -78,12 +78,12 @@ export class LevelBuilder {
     asteroid.addComponent(this.spriteSystemPool.pool.create({
       posx: this.world.screenWidth * Math.random(),
       posy: -100,
-      scaleX: 1,
-      scaleY: 1,
+      scaleX: 0.4,
+      scaleY: 0.4,
       pivotXScale: 0.5,
       pivotYScale: 0.2,
       texture: PIXI.loader.resources.asteroid.texture,
-      rotation: 0,
+      rotation: Math.random()*3.14,
 
     }));
     asteroid.addComponent(this.velocitySystemPool.pool.create(0, Math.random()*5 + 2));
@@ -107,13 +107,59 @@ export class LevelBuilder {
 
 
     let bullet = this.entityPool.pool.create();
+
+    function getTexture (){
+
+      if (Math.random() > 0.5){
+        return PIXI.loader.resources.fire1.texture
+      } else {
+        return PIXI.loader.resources.fire2.texture
+      }
+
+    }
+
     bullet.addComponent(this.spriteSystemPool.pool.create({
       posx: shooter.x,
       posy: shooter.y,
-      scaleX: 0.1,
-      scaleY: 0.5,
+      scaleX: 0.15,
+      scaleY: 0.15,
       pivotXScale: 0.5,
-      pivotYScale: 0.2,
+      pivotYScale: 0.5,
+      texture: getTexture(),
+      rotation: 0,
+    }))
+
+    bullet.addComponent(this.velocitySystemPool.pool.create(velx,vely));
+    // bullet.addComponent(self.gravitySystemPool.pool.create(0,0.1));
+    bullet.addComponent(this.spriteDirectionalRotationSystemPool.pool.create());
+    bullet.addComponent(this.spriteRemoveSystemPool.pool.create(false));
+    bullet.addComponent(this.queRemoveSystemPool.pool.create(15));
+    bullet.addComponent(this.bullets.pool.create(bullet.components.sprite.sprite))
+
+  }
+
+  createLaser(shooter, target) {
+
+    let diff_y = target.y - shooter.y;
+    let diff_x = target.x - shooter.x;
+
+    var angle = Math.atan2(diff_y, diff_x);
+    var power = 20;
+
+    var velx = Math.cos(angle)*power;
+    var vely = Math.sin(angle)*power;
+
+
+    let bullet = this.entityPool.pool.create();
+
+
+    bullet.addComponent(this.spriteSystemPool.pool.create({
+      posx: shooter.x,
+      posy: shooter.y,
+      scaleX: 0.15,
+      scaleY: 0.15,
+      pivotXScale: 0.5,
+      pivotYScale: 0.5,
       texture: PIXI.loader.resources.bullet.texture,
       rotation: 0,
     }))
@@ -122,7 +168,7 @@ export class LevelBuilder {
     // bullet.addComponent(self.gravitySystemPool.pool.create(0,0.1));
     bullet.addComponent(this.spriteDirectionalRotationSystemPool.pool.create());
     bullet.addComponent(this.spriteRemoveSystemPool.pool.create(false));
-    bullet.addComponent(this.queRemoveSystemPool.pool.create(410));
+    bullet.addComponent(this.queRemoveSystemPool.pool.create(120));
     bullet.addComponent(this.bullets.pool.create(bullet.components.sprite.sprite))
 
   }
@@ -137,7 +183,7 @@ export class LevelBuilder {
         scaleX: 0.1,
         scaleY: 0.1,
         pivotXScale: 0.5,
-        pivotYScale: 0.2,
+        pivotYScale: 0.5,
         texture: PIXI.loader.resources.bullet.texture,
         rotation: Math.random()*3.14,
       }))
@@ -155,10 +201,10 @@ export class LevelBuilder {
       shrap.addComponent(this.spriteSystemPool.pool.create({
         posx: x,
         posy: y,
-        scaleX: 0.3,
-        scaleY: 0.3,
+        scaleX: 0.1,
+        scaleY: 0.1,
         pivotXScale: 0.5,
-        pivotYScale: 0.2,
+        pivotYScale: 0.5,
         texture: PIXI.loader.resources.asteroid.texture,
         rotation: Math.random()*3.14,
       }))
