@@ -1,1 +1,2 @@
-#hier rook ons hulle
+#npm install
+#npm start

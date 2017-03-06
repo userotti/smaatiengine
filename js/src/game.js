@@ -71,7 +71,7 @@ export class Game {
       //proper loading vibes for the rest of the app
       //Image Loading
 
-      loader.add('asteroid', 'assets/img/asteroid-icon.png');
+      loader.add('asteroid', 'assets/img/asteroid_pic.png');
       loader.add('rocket', 'assets/img/rocket.png');
       loader.add('rand', 'assets/img/rand.png');
       loader.add('arrow', 'assets/img/arrow_smaller.png');
@@ -79,7 +79,7 @@ export class Game {
       loader.add('bullet', 'assets/img/characters/geel.png');
       loader.add('ship', 'assets/img/characters/blougrys.png');
 
-      loader.add('fire2', 'assets/img/fire2.png');
+      loader.add('fire2', 'assets/img/fire_2.png');
 
       loader.add('stars', 'assets/img/backgrounds/1.jpg');
       loader.add('fire1', 'assets/img/fire1.png');
