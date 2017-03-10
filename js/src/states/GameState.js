@@ -95,8 +95,16 @@ export class GameState extends BaseState {
 
     this.levelBuilder.createStars();
 
+    this.container.on('touchstart', function(mouseData){
+      self.shooting = true;
+    })
+
     this.container.on('mousedown', function(mouseData){
       self.shooting = true;
+    })
+
+    this.container.on('touchend', function(mouseData){
+      self.shooting = false;
     })
 
     this.container.on('mouseup', function(mouseData){

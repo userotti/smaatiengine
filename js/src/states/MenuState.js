@@ -21,6 +21,10 @@ export class MenuState extends BaseState {
             self.state_manager.fsm.play();
         }
 
+        play_button.touchstart = function(mouseData){
+            self.state_manager.fsm.play();
+        }
+
         play_button.position.x = size.x/2;
         play_button.position.y = size.y/2;
         play_button.pivot.x = play_button.width/2;
